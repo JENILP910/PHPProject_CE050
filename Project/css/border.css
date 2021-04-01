@@ -1,0 +1,82 @@
+﻿:root {
+	 --colorfirst: #65587f;
+	 --colorsecond: #f18867;
+	 --colorthird: #e85f99;
+	 --colorforth: #50bda1;
+	 --blockwidth: 90px;
+	 --blockheight: 90px;
+	 --borderwidth: 0.625rem;
+	 --borderradiusouter: 8px;
+	 /*--borderradiusinner: calc(var(--borderradiusouter) / 2);*/
+	 --borderradiusinner: 4px;
+	 box-sizing: border-box;
+	 line-height: 1.4;
+}
+
+body {/*
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;*/
+}
+ .rainbow {
+	 width: 100%;
+	 height: 100%;
+	 animation: o-rotate-360 linear 6s infinite;
+}
+ .rainbow span {
+	 display: block;
+	 width: 100%;
+	 height: 100%;
+	 position: relative;
+	 transform: translate(-50%, -50%);
+}
+ .rainbow span:after {
+	 display: block;
+	 content: "";
+	 width: 100%;
+	 height: 100%;
+	 position: absolute;
+	 left: 100%;
+}
+ .rainbow span:first-child {
+	 background: var(--colorfirst);
+}
+ .rainbow span:first-child:after {
+	 background: var(--colorsecond);
+}
+ .rainbow span:last-child {
+	 background: var(--colorthird);
+}
+ .rainbow span:last-child:after {
+	 background: var(--colorforth);
+}
+ .c-subscribe-box {
+	 width: var(--blockwidth);
+	 height: var(--blockheight);
+	 overflow: hidden;
+	 position: relative;
+	 /*box-shadow: 0 10px 40px -10px rgba(0, 64, 128, .2);*/
+	 border-radius: var(--borderradiusouter);
+}
+ .c-subscribe-box__wrapper {
+	 width: 56%;
+	 height: 36%;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 background: #000;
+	 padding: 1.2rem 1rem 1.8rem;
+	 display: flex;
+	 flex-direction: column;
+	 border-radius: var(--borderradiusinner);
+}
+ @keyframes o-rotate-360 {
+	 0% {
+		 transform: rotate(0);
+	}
+	 100% {
+		 transform: rotate(360deg);
+	}
+}
+ 

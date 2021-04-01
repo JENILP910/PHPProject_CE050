@@ -1,0 +1,80 @@
+
+body{
+	background-image: url('../image/back2.jpg');
+	background-size: 100% 100%;
+}
+
+#iform {
+	display: block;
+	border: 2px solid #000;
+	width: 450px;
+	height: auto;
+	margin: auto;
+	margin-top: 90px;
+	background-image: url('../image/proart.jpg');
+	background-size: 100% 100%;
+	/*align-items: center;*/
+}
+
+#iform img{
+	position: relative;
+	display: none;
+	/*width: 340px;*/
+	/*height: 220px;*/
+	image-orientation:none;
+	margin-left: 12%;
+	margin-top: 10%;
+	border: 2px solid #fff;	
+}
+
+#iform input{
+	margin-bottom: 20px;
+}
+
+#ifile {
+	/*display: block;*/
+	margin-left: 22%;
+	margin-top: 10%;
+}
+
+.fdiv {
+	background-color: orange;
+	width: 280px;
+	height: 30px;
+	border: 1px solid #fff;
+	margin-left: 20%;
+	margin-top: 10%;
+	margin-top: -47px;
+}
+
+#sbutton {
+	color:#000;
+	font-size: 20px;
+	width:150px;
+	height: 40px;
+	size: 20px;
+	/*margin-bottom: 10px;*/
+	/*margin-right: 30px;*/
+	background-color:#fff;
+	border:2px solid #0bacff;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+}
+
+#sbutton:hover {
+	color:#ffffff;
+	background-color:#0488cd;
+	border:2px solid #0488cd;
+}
+/*
+#isubmit{
+	margin-top: 5%;
+	padding: 4px 4px 4px 4px;
+}
+
+#reset {
+	padding: 4px 4px 4px 4px;
+}
+*/
