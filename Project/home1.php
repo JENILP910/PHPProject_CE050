@@ -1,48 +1,4 @@
-<?php
-	function time_stamp($session_time){
-		$time_difference = time() - strtotime($session_time); ; 
-		$seconds = $time_difference;
-		$minutes = round($time_difference / 60 );
-		$hours = round($time_difference / 3600 ); 
-		$days = round($time_difference / 86400 ); 
-		$weeks = round($time_difference / 604800 ); 
-		$months = round($time_difference / 2419200 ); 
-		$years = round($time_difference / 29030400 ); 
 
-		if($seconds <= 60)
-			echo"$seconds seconds ago"; 
-		else if($minutes <=60)
-		   	if($minutes==1)
-		    	echo"one minute ago"; 
-		   	else
-			   echo"$minutes minutes ago"; 
-		else if($hours <=24)
-		   	if($hours==1)
-			   echo"one hour ago";
-		  	else
-		  		echo"$hours hours ago";
-		else if($days <=7)
-		  	if($days==1)
-			   echo"one day ago";
-			else
-			echo"$days days ago";
-		else if($weeks <=4)
-		 	if($weeks==1)
-		   		echo"one week ago";
-		  	else
-				echo"$weeks weeks ago";
-		else if($months <=12)
-		   	if($months==1)
-		   		echo"one month ago";
-		  	else
-		  		echo"$months months ago";
-		else
-			if($years==1)
-		   		echo"one year ago";
-		  	else
-		  		echo"$years years ago";
-	}
-?>
 
 <!DOCTYPE html>
 <html>
@@ -131,9 +87,6 @@
 				document.getElementById('padal').style.display = "none";
 				document.getElementById("txta").value = "";
 			};
-			// function clear(){
-			// 	if(document.has)
-			// }
 		</script>
 
 	</div>
@@ -164,7 +117,9 @@
 <?php
 	include("includes/database.php");
 	$query=mysqli_query($link, "SELECT * from post LEFT JOIN user on user.user_id=post.user_id order by post_id DESC") or die(mysqli_error());
-
+	// $rk = mysqli_num_rows($query);
+	// echo $rk;
+	$k = -1;
 	while($row=mysqli_fetch_array($query)){
 		$posted_by = $row['firstname']." ".$row['lastname'];
 		$location = $row['post_image'];
@@ -172,10 +127,9 @@
 		$content=$row['content'];
 		$post_id = $row['post_id'];
 		$time=$row['created'];
-		echo "	<script type=\"text/javascript\">
-					del();
-				</script>";
-					
+		$k ++;
+		// echo $k;
+		// echo $location;
 ?>
 		<div id="padal" ></div>
 		<div id="right-nav1">
@@ -185,30 +139,75 @@
 			    	<span></span>
 			    </div>
 			    <div class="c-subscribe-box__wrapper">
-
 			    </div>
 			</div>
 			<div class="profile-pics">
 			<img src="<?php echo $profile_picture ?>">
 			<b><?php echo $posted_by ?></b>
-			<strong><?php echo $time = time_stamp($time); ?></strong>
+			<strong id="elaspe<?php echo $k; ?>"></strong>
+			<script type="text/javascript">
+				setTimeout(elasped, 0, "elaspe");
+				setInterval(elasped, 1000, "elaspe");
+				function elasped(elemid){
+					var timex = "<?php echo $time; ?>";
+					var date1 = new Date(timex);
+					var date2 = new Date();
+					var time_difference = date2 - date1; 
+
+					var seconds = Math.round(time_difference/1000);
+					var minutes = Math.round(seconds / 60 );
+					var hours = Math.round(seconds / 3600 ); 
+					var days = Math.round(seconds / 86400 ); 
+					var weeks = Math.round(seconds / 604800 ); 
+					var months = Math.round(seconds / 2419200 ); 
+					var years = Math.round(seconds / 29030400 ); 
+					var datax = hours;
+					if(seconds <= 60)
+						datax = seconds + " seconds ago"; 
+					else if(minutes <=60)
+					   	if(minutes==1)
+					    	datax = "a minute ago"; 
+					   	else
+						   datax = minutes + " minutes ago"; 
+					else if(hours <=24)
+					   	if(hours==1)
+						   datax = "an hour ago";
+					  	else
+					  		datax = hours + " hours ago";
+					else if(days <=7)
+					  	if(days==1)
+						   datax = "a day ago";
+						else
+						datax = days + " days ago";
+					else if(weeks <=4)
+					 	if(weeks==1)
+					   		datax = "a week ago";
+					  	else
+							datax = weeks + " weeks ago";
+					else if(months <=12)
+					   	if(months==1)
+					   		datax = "a month ago";
+					  	else
+					  		datax = months + " months ago";
+					else
+						if(years==1)
+					   		datax = "a year ago";
+					  	else
+					  		datax = years + " years ago";
+					document.getElementById(elemid + "<?php echo $k; ?>").innerHTML = datax;
+				}
+			</script>
 			</div>
 			<br/>
 			<div class="post-content">
 				<div class="deletepc">
 				<a href="delete_post.php<?php echo '?id='.$post_id; ?>" title="Delete your post">
-					<button class="btn-delete" id="delpost">X</button>
-					<!-- <?php echo "<script type=\"text/javascript\">
-									del();
-								</script>";
-					?> -->
+					<button class="btn-delete" id="delpost<?php echo $k; ?>">X</button>
 					<script type="text/javascript">
-						function del(){
 							var id1 = <?php echo $_SESSION['id']; ?>;
 							var id2 = <?php echo $row['user_id']; ?>;
 							if(id1 != id2)
-								document.getElementById('delpost').style.display = "none";
-						}
+								document.getElementById('delpost<?php echo $k; ?>').style.display = "none";
 					</script>
 				</a>
 				</div>
@@ -239,7 +238,11 @@
 						<img src="<?php echo $row['image'];?>">
 							&nbsp;&nbsp;&nbsp;
 							<?php echo $row['name']; ?>
-							<b class="time-comment"><?php echo $time = time_stamp($time); ?></b>
+							<b class="time-comment" id="commid<?php echo $k; ?>"></b>
+							<script type="text/javascript">
+								setTimeout(elasped, 0, "commid");
+								setInterval(elasped, 1000, "commid");
+							</script>
 					</div>
 					<div class="comment">
 						<?php echo $row['content_comment']; ?>
@@ -251,20 +254,19 @@
 ?>
 			<form  method="POST" action="comment.php">			
 				<div class="comment-area">
-				
 <?php
-				$image=mysqli_query($link, "select * from user where user_id='$id'")or die(mysql_error());
-					while($row=mysqli_fetch_array($image)){
+					$image=mysqli_query($link, "select * from user where user_id='$id'")or die(mysql_error());
+						while($row=mysqli_fetch_array($image)){
 ?>
-						<img src="<?php echo $profile_picture; ?>" width="50" height="50">
+							<img src="<?php echo $profile_picture; ?>" width="50" height="50">
 <?php
-					}
+						}
 ?>
-				<input type="text" name="content_comment" placeholder="Write a comment..." class="comment-text">
-				<input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-				<input type="hidden" name="user_id" value="<?php echo $firstname . ' ' . $lastname;  ?>">
-				<input type="hidden" name="image" value="<?php echo $profile_picture; ?>">
-				<input type="submit" name="post_comment" value="Comment" class="btn-comment">
+					<input type="text" name="content_comment" placeholder="Write a comment" class="comment-text" title="Comment here">
+					<input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+					<input type="hidden" name="user_id" value="<?php echo $firstname . ' ' . $lastname;  ?>">
+					<input type="hidden" name="image" value="<?php echo $profile_picture; ?>">
+					<input type="submit" name="post_comment" value="Comment" class="btn-comment">
 				
 				</div>
 			</form>
@@ -284,7 +286,19 @@
 		    
 	    return false;
 		}
+		<?php echo $k; ?>header("Refresh:0");
+		var j = setTimeout(elasped,0);
+		j = setInterval(elasped,60000);
+		function elasped(){
+			++i;
+			document.getElementById('elapsedt<?php echo $k; ?>').innerHTML = "<?php echo $time = time_stamp($time); ?>";
+			document.getElementById('abcd').innerHTML = "done" + i;
+		}
 	</script>
+	<!-- <?php
+		echo $rk."<br>";
+	?> -->
 </body>
 
 </html>
+

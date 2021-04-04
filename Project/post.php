@@ -25,9 +25,14 @@
 				$contents=$_POST['content'];
 				$time=time();
 
-				echo $contents;
+				// echo $contents;
+				date_default_timezone_set("Asia/Kolkata");
+				$time = date_create();
+				$time = date_format($time,"Y-m-d H:i:s");
+				// echo  $time . "<br>";
+				// echo gettype($time);
 				$newpost = mysqli_query($link, 
-					"INSERT INTO post (user_id, post_image, content, created) VALUES ('" . $id . "', '" . $location . "', '" . $contents . "', NOW())") or die ("Error: " . mysqli_error());
+					"INSERT INTO post (user_id, post_image, content, created) VALUES ('" . $id . "', '" . $location . "', '" . $contents . "', '". $time . "')") or die ("Error: " . mysqli_error());
 					// "INSERT INTO post (post_id, user_id, post_image, content, created) VALUES (1 , '" . $id . "', '" . $location . "', '" . $contents . "', '" . $time . "')") or die ("Error: " . mysqli_error());
 			}
 			// header('location:home1.php');
